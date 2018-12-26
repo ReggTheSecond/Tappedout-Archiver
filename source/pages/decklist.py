@@ -28,8 +28,8 @@ class DeckList(UrlConstants):
             element = self.browser.find_element_by_id(
                 "boardContainer-main-" + self.convert_punctuation(name_of_card)
             )
-        except Exception as e:
-            print e
+        except Exception:
+            pass
         return element.find_element_by_tag_name("a").text
 
     def get_number_of_card_in_sideboard(self, name_of_card):
@@ -37,8 +37,8 @@ class DeckList(UrlConstants):
             element = self.browser.find_element_by_id(
                 "boardContainer-side-" + self.convert_punctuation(name_of_card)
             )
-        except Exception as e:
-            print e
+        except Exception:
+            pass
         return element.find_element_by_tag_name("a").text
 
     def format_decklist(self, decklist):
@@ -60,8 +60,7 @@ class DeckList(UrlConstants):
                 "boardContainer-side-" + self.convert_punctuation(name_of_card)
             )
             return True
-        except Exception as e:
-            print e
+        except Exception:
             return False
 
     def is_a_mainboard_card(self, name_of_card):
@@ -70,8 +69,7 @@ class DeckList(UrlConstants):
                 "boardContainer-main-" + self.convert_punctuation(name_of_card)
             )
             return True
-        except Exception as e:
-            print e
+        except Exception:
             return False
 
     def is_a_sideboard_card(self, name_of_card):
@@ -80,8 +78,7 @@ class DeckList(UrlConstants):
                 "boardContainer-side-" + self.convert_punctuation(name_of_card)
             )
             return True
-        except Exception as e:
-            print e
+        except Exception:
             return False
 
     def convert_punctuation(self, card_name):
