@@ -30,6 +30,7 @@ for username in usernames:
     page = pages.DeckList(browser)
     dir = get_cwp() + "/data/" + username + "/"
     try:
+        os.mkdir(get_cwp() + "/data/")
         os.mkdir(dir)
     except Exception:
         pass
