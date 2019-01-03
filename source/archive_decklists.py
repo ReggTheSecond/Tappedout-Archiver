@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from datetime import datetime
 import pages
 import os
+import re
 
 
 def get_cwp():
@@ -19,23 +20,24 @@ page.accept_cookies()
 
 usernames = [
     "ReggTheSecond",
-    "Karab"
+    "Karab",
+    "giantlemon99"
 ]
 
 for username in usernames:
     page = pages.UserDecklists(browser)
     decknames_and_deck_urls = page.get_users_decklists_names_for_user(username)
     page = pages.DeckList(browser)
-
+    dir = get_cwp() + "/data/" + username + "/"
     try:
-        os.mkdir(get_cwp() + "/data/")
+        os.mkdir(dir)
     except Exception:
         pass
 
 
     for key in decknames_and_deck_urls:
         print key
-        file = open(get_cwp() + "/data/" + key + ".txt", 'w')
+        file = open(dir + re.sub("/", "\\", key) + ".txt", 'w')
         date = datetime.now()
         deck_info = "Deck Name: " + key +\
             "\nUsername: " + username +\
