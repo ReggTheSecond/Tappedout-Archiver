@@ -32,6 +32,7 @@ except Exception:
 
 
 for key in decknames_and_deck_urls:
+    print key
     file = open(get_cwp() + "/data/" + key + ".txt", 'w')
     date = datetime.now()
     deck_info = "Deck Name: " + key +\
