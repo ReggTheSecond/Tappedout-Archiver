@@ -14,4 +14,6 @@ This project is incomplete, more features to come.
 - Organize data folder (probably by format)
 - Archive Maybeboard
 - Archive Aquireboard
-- Other stuff maybbe?
+- Other stuff maybe?
+- Deck Changelog
+- 
