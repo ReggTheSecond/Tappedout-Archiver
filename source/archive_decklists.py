@@ -11,6 +11,8 @@ def get_cwp():
 
 
 chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument("--headless")
 browser = webdriver.Chrome(chrome_options=chrome_options)
 page = pages.Home(browser)
