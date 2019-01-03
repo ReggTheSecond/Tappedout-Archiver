@@ -12,14 +12,12 @@ def get_cwp():
 
 chrome_options = Options()
 chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument("--headless")
 browser = webdriver.Chrome(chrome_options=chrome_options)
 page = pages.Home(browser)
 page.navigate_to_home()
 page.accept_cookies()
 
-username = ""
+username = "ReggTheSecond"
 
 page = pages.UserDecklists(browser)
 decknames_and_deck_urls = page.get_users_decklists_names_for_user(username)
