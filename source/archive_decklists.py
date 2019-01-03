@@ -37,7 +37,7 @@ for username in usernames:
 
     for key in decknames_and_deck_urls:
         print key
-        file = open(dir + re.sub("/", "\\", key) + ".txt", 'w')
+        file = open(dir + re.sub("/", "-", key) + ".txt", 'w')
         date = datetime.now()
         deck_info = "Deck Name: " + key +\
             "\nUsername: " + username +\
