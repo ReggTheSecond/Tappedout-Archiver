@@ -31,6 +31,9 @@ for username in usernames:
     dir = get_cwp() + "/data/" + username + "/"
     try:
         os.mkdir(get_cwp() + "/data/")
+    except Exception:
+        pass
+    try:
         os.mkdir(dir)
     except Exception:
         pass
