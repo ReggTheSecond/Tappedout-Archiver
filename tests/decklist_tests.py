@@ -259,10 +259,10 @@ class DeckListTests(unittest.TestCase):
 2x Sarpadian Empires, Vol. VII
 1x To Arms!"""
         cards_to_check = {
-            "Abu Ja'far": True,
-            "Abzan Kin-Guard": False,
+            "Abu Ja'far":         True,
+            "Abzan Kin-Guard":    False,
             "Appeal / Authority": True,
-            "Turn / Burn": False
+            "Turn / Burn":        False
         }
         for card in cards_to_check:
             self.assertEqual(
