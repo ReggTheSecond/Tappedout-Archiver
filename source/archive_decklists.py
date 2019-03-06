@@ -13,6 +13,7 @@ def get_cwp():
 
 chrome_options = Options()
 chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
 browser = webdriver.Chrome(chrome_options=chrome_options)
 page = pages.Home(browser)
 page.navigate_to_home()
@@ -37,7 +38,6 @@ for username in usernames:
         os.mkdir(dir)
     except Exception:
         pass
-
 
     for key in decknames_and_deck_urls:
         print key
