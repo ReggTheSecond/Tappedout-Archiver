@@ -24,9 +24,9 @@ class UserDecklists(UrlConstants):
     def get_users_decklists_names_for_user(self, username):
         self.navigate_to_users_decklist_page(username, 1)
         decknames = {}
-        index = 1
+        index = 0
 
-        while index < self.get_number_of_pages():
+        while index <= self.get_number_of_pages():
             elements = self.browser.find_elements_by_class_name(
                 self.TAPPEDOUT_DECKNAME_CLASSES.split(" ")[-1]
             )
@@ -51,5 +51,8 @@ class UserDecklists(UrlConstants):
                 return element.get_attribute("href")
 
     def get_number_of_pages(self):
-        pagination_element = self.browser.find_element_by_class_name(self.TAPPEDOUT_PAGINATION)
-        return len(pagination_element.find_elements_by_tag_name("li"))
+        try:
+            pagination_element = self.browser.find_element_by_class_name(self.TAPPEDOUT_PAGINATION)
+            return len(pagination_element.find_elements_by_tag_name("li"))
+        except Exception:
+            return 1
