@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from datetime import datetime
-import pages
+import source.pages as pages
 import os
 import re
 
@@ -20,9 +20,7 @@ page.navigate_to_home()
 page.accept_cookies()
 
 usernames = [
-    "ReggTheSecond",
-    "Karab",
-    "giantlemon99"
+    "ReggTheSecond"
 ]
 
 for username in usernames:
@@ -30,17 +28,13 @@ for username in usernames:
     decknames_and_deck_urls = page.get_users_decklists_names_for_user(username)
     page = pages.DeckList(browser)
     dir = get_cwp() + "/data/" + username + "/"
-    try:
+    if os.path.isdir("/dir/"):
         os.mkdir(get_cwp() + "/data/")
-    except Exception:
-        pass
-    try:
+    if os.path.isdir(dir):
         os.mkdir(dir)
-    except Exception:
-        pass
 
     for key in decknames_and_deck_urls:
-        print key
+        print(key)
         file = open(dir + re.sub("/", "-", key) + ".txt", 'w')
         date = datetime.now()
         deck_info = "Deck Name: " + key +\

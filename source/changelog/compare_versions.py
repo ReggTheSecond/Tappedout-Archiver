@@ -16,7 +16,6 @@ def card_still_in_sideboard(card_name, decklist):
 def trim_metadata(decklist):
     for line in decklist.splitlines():
         if not is_meta_data(line):
-
     return decklist
 
 def trim_maindeck(decklist):
