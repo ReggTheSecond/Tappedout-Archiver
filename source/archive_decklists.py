@@ -20,7 +20,9 @@ page.navigate_to_home()
 page.accept_cookies()
 
 usernames = [
-    "ReggTheSecond"
+    "ReggTheSecond",
+    "Karab",
+    "giantlemon99"
 ]
 
 for username in usernames:
