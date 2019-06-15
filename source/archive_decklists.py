@@ -30,7 +30,7 @@ for username in usernames:
     decknames_and_deck_urls = page.get_users_decklists_names_for_user(username)
     page = pages.DeckList(browser)
     dir = get_cwp() + "/data/" + username + "/"
-    if not os.path.isdir("/dir/"):
+    if not os.path.isdir("/data/"):
         os.mkdir(get_cwp() + "/data/")
     if not os.path.isdir(dir):
         os.mkdir(dir)
