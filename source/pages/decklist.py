@@ -1,4 +1,4 @@
-from urls import UrlConstants
+from source.pages.urls import UrlConstants
 import re
 
 
