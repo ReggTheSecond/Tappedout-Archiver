@@ -1,3 +1,3 @@
-from decklist import DeckList
-from home import Home
-from user_decklists import UserDecklists
+from source.pages.decklist import  DeckList
+from source.pages.home import  Home
+from source.pages.user_decklists import  UserDecklists

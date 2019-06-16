@@ -1,4 +1,4 @@
-from urls import UrlConstants
+from source.pages.urls import UrlConstants
 import re
 
 
@@ -18,10 +18,11 @@ class DeckList(UrlConstants):
         return cards
 
     def get_list_of_cards_in_deck(self):
-        decklist = ""
         cards = self.get_all_card_names()
-        decklist = self.get_mainboard(cards) + "\n\n" + self.get_sideboard(cards)
-        return decklist
+        return "{}\n\n{}".format(
+            self.get_mainboard(cards),
+            self.get_sideboard(cards)
+        )
 
     def get_number_of_card_in_mainboard(self, name_of_card):
         try:
@@ -81,12 +82,14 @@ class DeckList(UrlConstants):
         except Exception:
             return False
 
-    def convert_punctuation(self, card_name):
+    @staticmethod
+    def convert_punctuation(card_name):
         card_name = re.sub("[',:.!]", "", card_name)
         card_name = re.sub(" \/ ", "-", card_name)
         return re.sub("\s", "-", card_name).lower()
 
-    def cards_not_tokens(self, list_of_cards):
+    @staticmethod
+    def cards_not_tokens(list_of_cards):
         return_cards = []
         for card in list_of_cards:
             if card.get_attribute("class") != "card card-token" and card.text.strip() != "Flip":
@@ -121,5 +124,6 @@ class DeckList(UrlConstants):
                 )
         return sideboard.strip()
 
-    def does_contain_card(self, name_of_card, string_of_cards):
+    @staticmethod
+    def does_contain_card(name_of_card, string_of_cards):
         return name_of_card in string_of_cards
