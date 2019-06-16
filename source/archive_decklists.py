@@ -8,11 +8,6 @@ import os
 import re
 
 
-def get_cwp():
-    cwd = os.getcwd()
-    return os.path.abspath(cwd)
-
-
 chrome_options = Options()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
@@ -25,7 +20,9 @@ path_to_data = "/data/"
 path_to_tmp = "{}/tmp".format(os.getcwd())
 
 usernames = [
-    "ReggTheSecond"
+    "ReggTheSecond",
+    "Karab",
+    "giantlemon99"
 ]
 
 for username in usernames:
@@ -43,13 +40,13 @@ for username in usernames:
     page = pages.UserDecklists(browser)
     decknames_and_deck_urls = page.get_users_decklists_names_for_user(username)
     page = pages.DeckList(browser)
-    dir = "{}{}{}/".format(
-        get_cwp(),
-        path_to_data,
+
+    dir = '{}/data/{}/'.format(
+        os.getcwd(),
         username
     )
-    if not os.path.isdir(path_to_data):
-        os.mkdir(get_cwp() + path_to_data)
+    if not os.path.isdir('/data/'.format(os.getcwd())):
+        os.mkdir('/data/'.format(os.getcwd()))
     if not os.path.isdir(dir):
         os.mkdir(dir)
 
