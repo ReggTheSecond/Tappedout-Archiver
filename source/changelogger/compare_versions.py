@@ -1,20 +1,45 @@
 import re
 
 
-def card_still_in_maindeck(card_name, decklist):
-    return still_in_maindeck
+def format_changelog(diff):
+    added = ""
+    cut = ""
+    for card in diff:
+        if diff[card] > 0:
+            added += "\t{}: +{}\n".format(card, diff[card])
+        else:
+            cut += "\t{}: {}\n".format(card, diff[card])
+    return "{}{}".format(added, cut)
 
 
-def same_number_of_card_in_maindeck(card_name, number_of_card, decklist):
-    return same_number_of_card
+def has_sideboard(deck):
+    return deck.strip() != ''
 
 
-def same_number_of_card_in_sideboard(card_name, number_of_card, decklist):
-    return same_number_of_card
-
-
-def card_still_in_sideboard(card_name, decklist):
-    return still_in_sideboard
+def format_changelog_main_and_side(old_deck, new_deck):
+    changelog = "CHANGELOG:\nMaindeck\n"
+    maindeck_diff = compare_decklist(
+        get_maindeck(
+            old_deck
+        ),
+        get_maindeck(
+            new_deck
+        )
+    )
+    changelog += format_changelog(maindeck_diff)
+    if has_sideboard(get_sideboard(new_deck)):
+        sideboard_diff = compare_decklist(
+            get_sideboard(
+                old_deck
+            ),
+            get_sideboard(
+                new_deck
+            )
+        )
+        changelog += "\nSideboard\n{}".format(
+            format_changelog(sideboard_diff)
+        )
+    return changelog
 
 
 def get_metadata(decklist):
@@ -50,7 +75,7 @@ def get_sideboard(decklist):
             sideboard = "%s\n" % line
         elif is_in_sideboard(get_card_name(line), decklist) and sideboard_started and line != "":
             sideboard += "%s\n" % line
-    return sideboard
+    return sideboard if sideboard != None else ""
 
 
 def is_metadata(text):
@@ -81,6 +106,8 @@ def is_in_sideboard(card, decklist):
     for line in decklist.splitlines():
         if re.search("Sideboard:", line):
             sideboard_started = True
+        elif re.search("CHANGELOG:", line):
+            sideboard_started = False
         elif sideboard_started:
             if re.search(card, line):
                 return True
@@ -92,33 +119,36 @@ def get_card_name(line):
 
 
 def get_number_of_card(line):
-    return int(re.split("x .+$", line)[0])
+    return int(re.split("x .+$", line)[0]) if line != '' else 0
 
 
-def compare_decklist(old_maindeck, new_maindeck):
+def compare_decklist(old_deck, new_deck):
     differences = {}
-    for line in old_maindeck.splitlines():
-        if(
-            card_in_list(line, new_maindeck) and
-            same_number_of_card_in_list(line, new_maindeck)
-        ):
-            pass
-        elif(
-            card_in_list(get_card_name(line), new_maindeck) and not
-            same_number_of_card_in_list(line, new_maindeck)
-        ):
-            differences[get_card_name(line)] = get_difference_number_of_card(line, new_maindeck)
-        elif not card_in_list(get_card_name(line), new_maindeck):
-            differences[get_card_name(line)] = -get_number_of_card(line)
+    for card in old_deck.splitlines():
+        # Is card still in deck?
+        if card_in_list(get_card_name(card), new_deck):
+            # Has the number of the card in the deck changed?
+            if not same_number_of_card_in_list(card, new_deck):
+                differences[get_card_name(card)] = get_difference_number_of_card(card, new_deck)
+        else:
+            differences[get_card_name(card)] = -get_number_of_card(card)
+    for card in new_deck.splitlines():
+        # Was card in deck?
+        if card_in_list(get_card_name(card), old_deck):
+            # Was the same number of the card in the old deck?
+            if not same_number_of_card_in_list(card, new_deck):
+                differences[get_card_name(card)] = get_difference_number_of_card(card, new_deck)
+        # Is card completely new?
+        else:
+            differences[get_card_name(card)] = get_number_of_card(card)
     return differences
 
 
 def card_in_list(name_of_card, list_of_cards):
-    card_in_list = False
     for card in list_of_cards.splitlines():
-        if name_of_card == get_card_name(card):
-            card_in_list = True
-    return card_in_list
+        if re.search(name_of_card, card):
+            return True
+    return False
 
 
 def same_number_of_card_in_list(card_details, list_of_cards):

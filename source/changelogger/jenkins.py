@@ -5,7 +5,7 @@ import re
 url = 'http://178.62.75.87:8080/view/TappedOut%20Archiver/job/Archive%20Tappedout/lastSuccessfulBuild/artifact/data/'
 session = HTMLSession()
 
-r = session.get(url, auth=('GreatIrishElk', 'B8asd@lkj9'))
+r = session.get(url, auth=('jenkins', 'read_only'))
 the_usernames = [
     "ReggTheSecond"
 ]
