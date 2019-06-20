@@ -57,6 +57,7 @@ class DeckListTests(unittest.TestCase):
     def setUp(self):
         self.CHROME_OPTIONS = Options()
         self.CHROME_OPTIONS.add_argument("--headless")
+        self.CHROME_OPTIONS.add_argument('--no-sandbox')
         self.BROWSER = webdriver.Chrome(chrome_options=self.CHROME_OPTIONS)
         self.BROWSER.get(self.URL)
 
