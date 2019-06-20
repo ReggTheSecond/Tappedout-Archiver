@@ -3,10 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from datetime import datetime
 from source.changelogger.jenkins import find_deck_names
 from source.changelogger.jenkins import download_deck
-from source.changelogger.compare_versions import compare_decklist
 from source.changelogger.compare_versions import format_changelog_main_and_side
-from source.changelogger.compare_versions import get_maindeck
-from source.changelogger.compare_versions import get_sideboard
 import source.pages as pages
 import os
 import re
@@ -40,7 +37,18 @@ for username in usernames:
     deck_names_links = find_deck_names(username)
     for key in deck_names_links:
         deck_list = download_deck(username, deck_names_links[key])
-        file = open("{}/{}/{}".format(path_to_tmp, username, key), 'w')
+        file = open(
+            "{}/{}/{}".format(
+                path_to_tmp,
+                username,
+                re.sub(
+                    '\?',
+                    '',
+                    re.sub('/|:', '-', key)
+                )
+            ),
+            'w'
+        )
         file.write(deck_list)
 
 for username in usernames:
@@ -58,8 +66,12 @@ for username in usernames:
             "{}/{}/{}.txt".format(
                 path_to_data,
                 username,
-                re.sub('/|:', '-', key)
-                ),
+                re.sub(
+                    '\?',
+                    '',
+                    re.sub('/|:', '-', key)
+                )
+            ),
             'w'
         )
         date = datetime.now()
@@ -80,10 +92,12 @@ files_from_tmp = glob.glob(globber_tmp)
 
 
 for file_data in files_from_data:
+    print(file_data)
     deck_name = file_data.split('\\')[-1]
 
     for file_tmp in files_from_tmp:
         if deck_name in file_tmp:
+            print(file_tmp)
             new_deck = open(file_data, 'r').read()
             old_deck = open(file_tmp, 'r').read()
             
