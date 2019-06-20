@@ -144,13 +144,13 @@ class DeckListTests(unittest.TestCase):
 
     def test_get_sideboard(self):
         cards_in_sideboard = [
+            "Sarpadian Empires, Vol. VII",
             "Abu Ja'far",
             "Adamaro, First to Desire",
             "Ahn-Crop Champion",
             "Appeal / Authority",
             "Circle of Protection: Green",
             "Research / Development",
-            "Sarpadian Empires, Vol. VII",
             "To Arms!"
         ]
         cards = []
@@ -158,13 +158,13 @@ class DeckListTests(unittest.TestCase):
             card = MockCard(card_name, "card", "a")
             cards.append(card)
         formatted_sideboard = """Sideboard:
+2x Sarpadian Empires, Vol. VII
 1x Abu Ja'far
 1x Adamaro, First to Desire
 1x Ahn-Crop Champion
 1x Appeal / Authority
 1x Circle of Protection: Green
 8x Research / Development
-2x Sarpadian Empires, Vol. VII
 1x To Arms!"""
         decklist_getter = DeckList(self.BROWSER)
         self.assertEqual(
@@ -173,7 +173,7 @@ class DeckListTests(unittest.TestCase):
             "Expected:\n" + formatted_sideboard +
             "\n\nGot:\n" + decklist_getter.get_sideboard(cards)
         )
-        self.assertItemsEqual(
+        self.assertEqual(
             self.convert_to_array(decklist_getter.get_sideboard(decklist_getter.get_all_card_names())),
             self.convert_to_array(formatted_sideboard),
             "Expected:\n" + formatted_sideboard +
@@ -213,19 +213,19 @@ class DeckListTests(unittest.TestCase):
             "1x Turn / Burn",
             "10x Borrowing 100,000 Arrows",
             "1x Kaboom!",
+            "2x Sarpadian Empires, Vol. VII",
             "1x Abu Ja'far",
             "1x Adamaro, First to Desire",
             "1x Ahn-Crop Champion",
             "1x Appeal / Authority",
             "1x Circle of Protection: Green",
             "8x Research / Development",
-            "2x Sarpadian Empires, Vol. VII",
             "1x To Arms!"
         ]
         decklist_getter = DeckList(self.BROWSER)
         decklist = self.convert_to_array(decklist_getter.get_list_of_cards_in_deck())
 
-        self.assertItemsEqual(
+        self.assertEqual(
             decklist,
             cards_expected,
             "Expected:\n" + str(cards_expected) +
