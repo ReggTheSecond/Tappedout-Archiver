@@ -1,2 +1,0 @@
-import is_metadata
-import trim_maindeck
