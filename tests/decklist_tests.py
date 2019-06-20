@@ -1,7 +1,7 @@
 from tests import DeckList
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from mocks.mock_card import MockCard
+from tests.mocks.mock_card import MockCard
 import unittest
 
 
