@@ -29,13 +29,16 @@ usernames = [
     "giantlemon99"
 ]
 
+print("--Gathering previous versions of decklists from server--" 
 for username in usernames:
+    print(username)
     if not os.path.isdir(path_to_tmp):
         os.mkdir(path_to_tmp)
     if not os.path.isdir("{}/{}".format(path_to_tmp, username)):
         os.mkdir("{}/{}".format(path_to_tmp, username))
     deck_names_links = find_deck_names(username)
     for key in deck_names_links:
+        print(key)
         deck_list = download_deck(username, deck_names_links[key])
         file = open(
             "{}/{}/{}".format(
@@ -51,7 +54,9 @@ for username in usernames:
         )
         file.write(deck_list)
 
+print("/n--Archiving decklists from TappedOut--")
 for username in usernames:
+    print(username)
     page = pages.UserDecklists(browser)
     decknames_and_deck_urls = page.get_users_decklists_names_for_user(username)
     page = pages.DeckList(browser)
@@ -62,6 +67,7 @@ for username in usernames:
         os.mkdir('{}/{}'.format(path_to_data, username))
 
     for key in decknames_and_deck_urls:
+        print(key)
         file = open(
             "{}/{}/{}.txt".format(
                 path_to_data,
@@ -90,13 +96,15 @@ browser.quit()
 files_from_data = glob.glob(globber_data)
 files_from_tmp = glob.glob(globber_tmp)
 
+print(/n--Compiling Changelog")
 for file_data in files_from_data:
     print(file_data)
     if file_data.split('\\')[-1] == "":
         deck_name = file_data.split('/')[-1]
     else:
         deck_name = file_data.split('\\')[-1]
-
+    
+    print(deck_name)
     for file_tmp in files_from_tmp:
         if deck_name in file_tmp:
             print(file_tmp)
