@@ -20,9 +20,6 @@ page.accept_cookies()
 
 path_to_data = "{}/data/".format(os.getcwd())
 path_to_tmp = "{}/tmp/".format(os.getcwd())
-print(path_to_data)
-print(path_to_tmp)
-
 globber_data = '{}**/*.txt'.format(path_to_data)
 globber_tmp = '{}**/*.txt'.format(path_to_tmp)
 
@@ -92,16 +89,13 @@ browser.quit()
 
 files_from_data = glob.glob(globber_data)
 files_from_tmp = glob.glob(globber_tmp)
-temp = files_from_tmp
-for file in files_from_tmp:
-    print(file)
-
-exit()
-
 
 for file_data in files_from_data:
     print(file_data)
-    deck_name = file_data.split('\\')[-1]
+    if file_data.split('\\')[-1] == "":
+        deck_name = file_data.split('/')[-1]
+    else:
+        deck_name = file_data.split('\\')[-1]
 
     for file_tmp in files_from_tmp:
         if deck_name in file_tmp:
