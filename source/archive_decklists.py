@@ -29,7 +29,7 @@ usernames = [
     "giantlemon99"
 ]
 
-print("--Gathering previous versions of decklists from server--" 
+print("--Gathering previous versions of decklists from server--")
 for username in usernames:
     print(username)
     if not os.path.isdir(path_to_tmp):
@@ -96,7 +96,7 @@ browser.quit()
 files_from_data = glob.glob(globber_data)
 files_from_tmp = glob.glob(globber_tmp)
 
-print(/n--Compiling Changelog")
+print("/n--Compiling Changelog")
 for file_data in files_from_data:
     print(file_data)
     if file_data.split('\\')[-1] == "":
