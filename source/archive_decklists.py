@@ -20,6 +20,9 @@ page.accept_cookies()
 
 path_to_data = "{}/data/".format(os.getcwd())
 path_to_tmp = "{}/tmp".format(os.getcwd())
+print(path_to_data)
+print(path_to_tmp)
+
 globber_data = '{}**/*.txt'.format(path_to_data)
 globber_tmp = '{}/**/*.txt'.format(path_to_tmp)
 
