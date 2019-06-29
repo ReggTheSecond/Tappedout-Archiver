@@ -99,7 +99,7 @@ files_from_tmp = glob.glob(globber_tmp)
 print("/n--Compiling Changelog")
 for file_data in files_from_data:
     print(file_data)
-    if file_data.split('\\')[-1] == "":
+    if re.search('/', file_data):
         deck_name = file_data.split('/')[-1]
     else:
         deck_name = file_data.split('\\')[-1]
