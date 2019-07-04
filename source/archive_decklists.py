@@ -8,6 +8,7 @@ import source.pages as pages
 import os
 import re
 import glob
+import sys
 
 
 chrome_options = Options()
@@ -23,11 +24,11 @@ path_to_tmp = "{}/tmp/".format(os.getcwd())
 globber_data = '{}**/*.txt'.format(path_to_data)
 globber_tmp = '{}**/*.txt'.format(path_to_tmp)
 
-usernames = [
-    "ReggTheSecond",
-    "Karab",
-    "giantlemon99"
-]
+usernames = []
+
+for arguement in sys.argv:
+    if re.search('\w+\.py', arguement):
+        usernames.append(arguement)
 
 print("--Gathering previous versions of decklists from server--")
 for username in usernames:
