@@ -26,9 +26,8 @@ globber_tmp = '{}**/*.txt'.format(path_to_tmp)
 
 usernames = []
 
-for arguement in sys.argv:
-    if re.search('\w+\.py', arguement):
-        usernames.append(arguement)
+for user in sys.argv[1].split(':'):
+    usernames.append(user)
 
 print("--Gathering previous versions of decklists from server--")
 for username in usernames:
